@@ -17,6 +17,50 @@ def limitar_campo_descricao(texto:str) -> str:
     texto = texto[0:150]
     return texto
 
+def check_colunas(dataframe: pd.DataFrame):
+    colunas = []
+    
+    if 'CODIGO' not in dataframe.columns:
+        colunas.append('CODIGO')
+
+    if 'DESCRICAO' not in dataframe.columns:
+        colunas.append('DESCRICAO')
+
+    if 'VL_PROCEDI' not in dataframe.columns:
+        colunas.append('VL_PROCEDI')
+
+    if 'VL_CUSTO_O' not in dataframe.columns:
+        colunas.append('VL_CUSTO_O')
+
+    if 'VL_ANESTES' not in dataframe.columns:
+        colunas.append('VL_ANESTES')
+    
+    if 'VL_MEDICO' not in dataframe.columns:
+        colunas.append('VL_MEDICO')
+    
+    if 'VL_FILME' not in dataframe.columns:
+        colunas.append('VL_FILME')
+    
+    if 'QT_FILME' not in dataframe.columns:
+        colunas.append('QT_FILME')
+    
+    if 'VL_AUXILIA' not in dataframe.columns:
+        colunas.append('VL_AUXILIA')
+    
+    if 'NR_AUX' not in dataframe.columns:
+        colunas.append('NR_AUX')
+
+    if 'PORTE_ANES' not in dataframe.columns:
+        colunas.append('PORTE_ANES')
+
+    if len(colunas) > 0:
+        cols = ', '.join(colunas)
+        print(f'A colunas "{cols}" não foram encontradas no layout!')
+        input('Pressione ENTER para sair do programa.')
+        exit()
+
+
+
 def to_dbf( dataframe: pd.DataFrame ):
     df = dataframe
     headers = """
@@ -56,6 +100,8 @@ def to_dbf( dataframe: pd.DataFrame ):
 def main():
     print("Conversão iniciada")
     df = pd.read_excel(r'carga.xlsx')
+    check_colunas(df)    
+
 
     df['DESCRICAO'] = df['DESCRICAO'].apply(remover_acentos)
     df['DESCRICAO'] = df['DESCRICAO'].apply(limitar_campo_descricao)
