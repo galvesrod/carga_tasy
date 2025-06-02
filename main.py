@@ -2,6 +2,9 @@ import pandas as pd
 import unicodedata
 import re
 import dbf
+import warnings
+
+
 
 
 def remover_acentos(texto) -> str:
@@ -120,4 +123,5 @@ def main():
 
 
 if __name__ == '__main__':
+    warnings.filterwarnings("ignore", category=UserWarning, module="pkg_resources")
     main()
